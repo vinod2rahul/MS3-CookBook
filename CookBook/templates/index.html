@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block head %}
+    <!-- Render the parent template -->
+  {{ super() }} 
+  <link rel="stylesheet" href="{{ url_for('static', filename = 'css/index.css') }}">
+{% endblock %}
+
+ <!-- Title of the page goes here -->
+{% block title %} Index {% endblock %}
+
+<!-- Main Content goes here -->
+{% block content %} 
+     <h1>This is the Index Page</h1>     
+{% endblock %}
+
+{% block scripts %}
+    {{ super() }}
+    <script src="{{ url_for('static', filename = 'js/index.js') }}"></script>
+{% endblock %}
