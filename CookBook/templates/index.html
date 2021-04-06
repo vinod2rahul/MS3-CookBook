@@ -16,7 +16,26 @@
       <a href="/recipes/add" class="btn btn-primary mt-2 h-25">Add Recipe</a>  
     </div>
     <hr>
-     <div class="alerts"></div> 
+    <div class="alerts"></div> 
+
+    <div class="grid row">
+        {% for recipe in recipes %}
+        <div class="col">
+          <h3>{{ recipe.name }}</h3>
+          <span>Ingredients : </span>
+          {% for ingredient in recipe.ingredients %}
+            <span style="display:inline" class="text-info">{{ ingredient }}</span>
+          {% endfor %}
+          <h4>Preparation-Steps:</h4>
+          <p style="white-space: pre-wrap;">{{ recipe.prepsteps }}</p>
+          <span>Required Tools : </span>
+          {% for tool in recipe.tools %}
+            <span class="text-info">{{ tool }}</span>
+          {% endfor %}
+        </div>
+        {% endfor %}
+    </div>
+
 {% endblock %}
 
 {% block scripts %}

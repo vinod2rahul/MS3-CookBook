@@ -14,7 +14,7 @@
 <h1>Add Cooking Recipes</h1>
 <form id="formsubmit">
     <div class="form-group">
-        <label for="name">Email address</label>
+        <label for="name">Recipe Name</label>
         <input type="text" class="form-control" id="name" name="name" aria-describedby="nameFeedback" placeholder="Enter Recipe Name...">
         <div id="nameFeedback" class="invalid-feedback">
             <small>Recipe Name is required</small>
@@ -38,6 +38,7 @@
     <div class="form-group">
         <label for="tools">Required Tools</label>
         <textarea class="form-control" id="tools" name="tools" aria-describedby="toolsFeedback" placeholder="Enter Required Tools to make a recipe..." ></textarea>
+        <small>if there are multiple ingredients to prepare recipe seperate them by comma</small>
         <div id="toolsFeedback" class="invalid-feedback">
             <small>Tools are required</small>
         </div>
