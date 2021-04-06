@@ -12,3 +12,18 @@ if(message && alertType){
         alerts.removeChild(alerts.childNodes[0]);
     },3000);
 }
+
+function deleteRecipe(deleteRecipeItem){
+    axios.delete(`/recipes/delete/${deleteRecipeItem}`)
+    .then(res => {
+        localStorage.setItem('message', res.data.message);
+        localStorage.setItem('alertType', 'success')
+        location.assign('/')
+    })
+    .catch(err => {
+        console.error(err.message);
+        localStorage.setItem('message', err.message);
+        localStorage.setItem('alertType', 'danger');
+        location.assign('/');
+    })
+}

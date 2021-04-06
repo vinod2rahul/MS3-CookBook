@@ -1,5 +1,5 @@
 # Import statements
-from flask import Flask, jsonify, request, render_template
+from flask import Flask, jsonify, request, render_template, redirect
 
 from flask_pymongo import PyMongo
 
@@ -62,7 +62,6 @@ def update_recipe(id):
             ingredients = json_data['ingredients']
             prepsteps = json_data['prepsteps']
             tools = json_data['tools']
-            print('h')
             mongo.db.recipes.update_one({ '_id' : id},{ "$set" : {
                 'name' : name,
                 'ingredients' : ingredients.split(','),
@@ -78,5 +77,15 @@ def update_recipe(id):
             return response
     return render_template('editRecipe.html', recipe = fetchRecipe)
 
+# @route http://localhost:8000/recipes/delete/<ObjectId:id>
+# @desc Delete a recipe
+@app.route('/recipes/delete/<ObjectId:id>', methods = ['GET', 'DELETE'])
+def delete_recipe(id):
+    if(request.method == 'DELETE'):
+        mongo.db.recipes.delete_one({ '_id' : id})
+        response = jsonify({ 'message' : 'Document Deleted Successfully'})
+        response.status_code = 200
+        return response
+    return redirect(url_for('index'))
 if __name__ == '__main__':
     app.run(debug = True, port=8000)

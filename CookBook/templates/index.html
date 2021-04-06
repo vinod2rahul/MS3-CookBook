@@ -34,7 +34,8 @@
           {% endfor %}
           <br>
           <a href="/recipes/update/{{ recipe._id }}" class="mt-2 btn btn-primary">Edit</a>
-        </div>
+          <button class="mt-2 btn btn-danger" id="deleteRecipeItem" onclick="deleteRecipe('{{ recipe._id }}')">Delete</button>
+        </div>  
         {% endfor %}
     </div>
 
