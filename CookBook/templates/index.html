@@ -11,8 +11,12 @@
 
 <!-- Main Content goes here -->
 {% block content %} 
-     <h1>Cooking Recipes</h1>   
-     <a href="/recipes/add" class="btn btn-primary">Add Recipe</a>  
+    <div class="d-md-flex justify-content-between">
+      <h1>Cooking Recipes</h1>
+      <a href="/recipes/add" class="btn btn-primary mt-2 h-25">Add Recipe</a>  
+    </div>
+    <hr>
+     <div class="alerts"></div> 
 {% endblock %}
 
 {% block scripts %}

@@ -24,10 +24,17 @@ document.getElementById('formsubmit').addEventListener('submit', (e) => {
         }
         axios.post('/recipes/add', data, config)
         .then(res => {
-            console.log(res.data)
+            localStorage.setItem('message', res.data.message);
+            localStorage.setItem('alertType', 'success');
             resetFields();
+            location.assign('/');
         })
-        .catch(err => console.error(err.message))
+        .catch(err => {
+            localStorage.setItem('message', err.message);
+            localStorage.setItem('alertType', 'danger');
+            console.error(err.message);
+            location.assign('/');
+        })
     }
     else if(name === '' && ingredients === '' && prepsteps === '' && tools === ''){
         Domname.classList.add('is-invalid');

@@ -18,7 +18,7 @@ app = Flask(__name__)
 
 # @route http://localhost:8000/
 # @desc HomePage route
-@app.route('/')
+@app.route('/', methods=['GET'])
 def Index():
     return render_template('index.html')
 
