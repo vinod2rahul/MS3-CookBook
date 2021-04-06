@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block head %}
+<!-- Render the parent template -->
+{{ super() }}
+<link rel="stylesheet" href="{{ url_for('static', filename = 'css/index.css') }}">
+{% endblock %}
+
+<!-- Title of the page goes here -->
+{% block title %} Cook Book {% endblock %}
+
+<!-- Main Content goes here -->
+{% block content %}
+<h1>Add Cooking Recipes</h1>
+<form id="formsubmit">
+    <div class="form-group">
+        <label for="name">Email address</label>
+        <input type="text" class="form-control" id="name" name="name" aria-describedby="nameFeedback" placeholder="Enter Recipe Name...">
+        <div id="nameFeedback" class="invalid-feedback">
+            <small>Recipe Name is required</small>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="ingredients">Ingredients</label>
+        <input type="text" class="form-control" id="ingredients" name="ingredients" aria-describedby="ingredientsFeedback" placeholder="Enter Ingredients...">
+        <small>if there are multiple ingredients to prepare recipe seperate them by comma</small>
+        <div id="ingredientsFeedback" class="invalid-feedback">
+            <small>Ingredients are required</small>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="stepsforprep">Preparation Steps</label>
+        <textarea class="form-control" id="stepsforprep" name="prepsteps" aria-describedby="stepsforprepFeedback" placeholder="Enter steps to be followed to make recipe..."></textarea>
+        <div id="stepsforprepFeedback" class="invalid-feedback">
+            <small>Steps for preparation of recipe are required</small>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="tools">Required Tools</label>
+        <textarea class="form-control" id="tools" name="tools" aria-describedby="toolsFeedback" placeholder="Enter Required Tools to make a recipe..." ></textarea>
+        <div id="toolsFeedback" class="invalid-feedback">
+            <small>Tools are required</small>
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button> 
+</form>
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+<script src="{{ url_for('static', filename = 'js/createRecipe.js') }}"></script>
+{% endblock %}
