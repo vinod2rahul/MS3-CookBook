@@ -32,6 +32,8 @@
           {% for tool in recipe.tools %}
             <span class="text-info">{{ tool }}</span>
           {% endfor %}
+          <br>
+          <a href="/recipes/update/{{ recipe._id }}" class="mt-2 btn btn-primary">Edit</a>
         </div>
         {% endfor %}
     </div>

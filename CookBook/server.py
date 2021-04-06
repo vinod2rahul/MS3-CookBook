@@ -50,5 +50,33 @@ def add_recipe():
             return response
     return render_template('addRecipe.html')
 
+# @route http://localhost:8000/recipes/update/<ObjectId:id>
+# @desc Update a recipe
+@app.route('/recipes/update/<ObjectId:id>', methods = ['GET', 'PUT'])
+def update_recipe(id):
+    fetchRecipe = mongo.db.recipes.find_one_or_404({'_id' : id})
+    if request.method == 'PUT':
+        if(id != ''):
+            json_data = request.json
+            name = json_data['name']
+            ingredients = json_data['ingredients']
+            prepsteps = json_data['prepsteps']
+            tools = json_data['tools']
+            print('h')
+            mongo.db.recipes.update_one({ '_id' : id},{ "$set" : {
+                'name' : name,
+                'ingredients' : ingredients.split(','),
+                'prepsteps' : prepsteps,
+                'tools' : tools.split(',')
+            }})
+            response = jsonify({ 'message' : 'Document Updated successfully'})
+            response.status_code = 200
+            return response
+        else:
+            response = jsonify({ 'message' : 'Error : error while fetching'})
+            response.status_code = 500
+            return response
+    return render_template('editRecipe.html', recipe = fetchRecipe)
+
 if __name__ == '__main__':
     app.run(debug = True, port=8000)
