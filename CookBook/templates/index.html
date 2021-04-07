@@ -26,10 +26,12 @@
   {% for recipe in recipes %}
   <div class="col card bg-light">
     <div class="card-body">
+
     <h3 class="text-primary card-title">{{ recipe.name }}
       <span class="badge badge-primary" style="float:right;">€{{ recipe.price }}</span>
     </h3>
     <p>{{ recipe.desc }}</p>
+    <h3 class="text-primary card-title">{{ recipe.name }}</h3>
     <p>
     <span>Ingredients : </span>
     {% for ingredient in recipe.ingredients %}
