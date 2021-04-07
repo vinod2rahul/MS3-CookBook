@@ -6,11 +6,13 @@ body{
     display:grid;
     grid-template-columns: repeat(3, 1fr);
     grid-gap: 15px;
+    animation: slidein 1s ease-in-out 0.5s 1;
 }
 
-.col{
-    border: 2px solid black;
-    padding:10px;
+@keyframes slidein{
+    0%{
+        transform:translateX(-100%);
+    }
 }
 
 @media(max-width: 720px){
