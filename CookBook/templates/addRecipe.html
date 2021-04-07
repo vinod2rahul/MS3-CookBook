@@ -21,6 +21,20 @@
         </div>
     </div>
     <div class="form-group">
+        <label for="price">Recipe Price</label>
+        <input type="text" class="form-control" id="price" name="price" aria-describedby="priceFeedback" placeholder="Enter price of Recipe...">
+        <div id="priceFeedback" class="invalid-feedback">
+            <small>Recipe price is required</small>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="desc">Recipe description</label>
+        <input type="text" class="form-control" id="desc" name="desc" aria-describedby="descFeedback" placeholder="Enter description of Recipe...">
+        <div id="descFeedback" class="invalid-feedback">
+            <small>Recipe description is required</small>
+        </div>
+    </div>
+    <div class="form-group">
         <label for="ingredients">Ingredients</label>
         <input type="text" class="form-control" id="ingredients" name="ingredients" aria-describedby="ingredientsFeedback" placeholder="Enter Ingredients...">
         <small>if there are multiple ingredients to prepare recipe seperate them by comma</small>

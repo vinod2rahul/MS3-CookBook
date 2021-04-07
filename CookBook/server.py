@@ -33,12 +33,16 @@ def add_recipe():
         ingredients = json_data['ingredients']
         prepsteps = json_data['prepsteps']
         tools = json_data['tools']
-        if name != '' and ingredients != '' and prepsteps != '' and tools != '':
+        price = json_data['price']
+        desc = json_data['desc']
+        if name != '' and ingredients != '' and prepsteps != '' and tools != '' and price != '' and desc != '':
             mongo.db.recipes.insert({
                 'name' : name,
                 'ingredients' : ingredients.split(','),
                 'prepsteps' : prepsteps,
-                'tools' : tools.split(',')
+                'tools' : tools.split(','),
+                'price' : price,
+                'desc' : desc
             })
             response = jsonify({ 'message' : 'Recipe Added Successfully' })
             response.status_code = 200
@@ -62,11 +66,15 @@ def update_recipe(id):
             ingredients = json_data['ingredients']
             prepsteps = json_data['prepsteps']
             tools = json_data['tools']
+            price = json_data['price']
+            desc = json_data['desc']
             mongo.db.recipes.update_one({ '_id' : id},{ "$set" : {
                 'name' : name,
                 'ingredients' : ingredients.split(','),
                 'prepsteps' : prepsteps,
-                'tools' : tools.split(',')
+                'tools' : tools.split(','),
+                'price' : price,
+                'desc' : desc
             }})
             response = jsonify({ 'message' : 'Document Updated successfully'})
             response.status_code = 200
