@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block head %}
+<!-- Render the parent template -->
+{{ super() }}
+<link rel="stylesheet" href="{{ url_for('static', filename = 'css/index.css') }}">
+{% endblock %}
+
+<!-- Title of the page goes here -->
+{% block title %} Cook Book {% endblock %}
+
+<!-- Main Content goes here -->
+{% block content %}
+<div class="row mt-2">
+    <div class="col card bg-light">
+        <div class="card-body">
+            <h3 class="text-primary card-title">{{ recipe.name }}
+                <span class="badge badge-primary" style="float:right;">€{{ recipe.price }}</span>
+            </h3>
+            <p>{{ recipe.desc }}</p>
+            <p>
+                <span>Ingredients : </span>
+                {% for ingredient in recipe.ingredients %}
+                <span style="display:inline" class="text-info">{{ ingredient }}</span>
+                {% endfor %}
+            </p>
+            <h4>Preparation-Steps:</h4>
+            <p style="white-space: pre-wrap;">{{ recipe.prepsteps }}</p>
+            <p>
+                <span>Required Tools : </span>
+                {% for tool in recipe.tools %}
+                <span class="text-info">{{ tool }}</span>
+                {% endfor %}
+            </p>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+<script src="{{ url_for('static', filename = 'js/index.js') }}"></script>
+{% endblock %}

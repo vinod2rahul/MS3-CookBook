@@ -23,6 +23,14 @@ def Index():
     recipes = mongo.db.recipes.find()
     return render_template('index.html', recipes = recipes)
 
+# @route http://localhost:8000/recipes/<ObjectId:id>
+# @desc get singleRecipe
+@app.route('/recipes/<ObjectId:id>', methods=['GET'])
+def SingleRecipe(id):
+    recipe = mongo.db.recipes.find_one_or_404({ '_id' : id})
+    return render_template('singleRecipe.html', recipe = recipe)
+
+
 # @route http://localhost:8000/recipes/add
 # @desc Add a recipe
 @app.route('/recipes/add', methods = ['GET', 'POST'])
