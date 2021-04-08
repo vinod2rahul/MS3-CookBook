@@ -5,6 +5,8 @@ from flask_pymongo import PyMongo
 
 from bson.objectid import ObjectId
 
+from bson.json_util import dumps
+
 #Global Declarations 
 app = Flask(__name__)
 
@@ -20,8 +22,16 @@ mongo = PyMongo(app)
 # @desc HomePage route and listing all recipes
 @app.route('/', methods=['GET'])
 def Index():
-    recipes = mongo.db.recipes.find()
-    return render_template('index.html', recipes = recipes)
+    return render_template('index.html')
+
+# @route http://localhost:8000/api/result
+# @desc HomePage route and listing all recipes
+@app.route('/api/result', methods=['GET'])
+def allRecipes():
+    cursor = mongo.db.recipes.find()
+    recipes = list(cursor)
+    response = dumps(recipes)
+    return response
 
 # @route http://localhost:8000/recipes/<ObjectId:id>
 # @desc get singleRecipe
