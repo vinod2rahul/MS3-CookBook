@@ -1,35 +1,20 @@
 const message = localStorage.getItem('message');
 const alertType = localStorage.getItem('alertType');
-if(message && alertType){
+if (message && alertType) {
     const alerts = document.getElementsByClassName('alerts')[0];
     const elem = document.createElement('div');
-    elem.classList.add('alert',`alert-${alertType}`);
+    elem.classList.add('alert', `alert-${alertType}`);
     const textNode = document.createTextNode(message);
     elem.appendChild(textNode);
     alerts.appendChild(elem);
-    setTimeout(()=>{
+    setTimeout(() => {
         localStorage.clear();
         alerts.removeChild(alerts.childNodes[0]);
-    },3000);
+    }, 3000);
 }
-
-function deleteRecipe(deleteRecipeItem){
-    axios.delete(`/recipes/delete/${deleteRecipeItem}`)
-    .then(res => {
-        localStorage.setItem('message', res.data.message);
-        localStorage.setItem('alertType', 'success')
-        location.assign('/')
-    })
-    .catch(err => {
-        console.error(err.message);
-        localStorage.setItem('message', err.message);
-        localStorage.setItem('alertType', 'danger');
-        location.assign('/');
-    })
-}
-
 
 // Listing Recipes
+let AllRecipes = [];
 let recipes = [];
 function listRecipesinUI(param) {
     recipes = param;
@@ -54,6 +39,54 @@ function listRecipesinUI(param) {
     })
 }
 
+function removeChildNodes() {
+    const nodes = document.getElementsByClassName('row')[0];
+    while (nodes.hasChildNodes()) {
+        nodes.removeChild(nodes.firstChild);
+    }
+}
+
+function filterRecipes() {
+    const text = document.getElementById('filtertext').value;
+    if (text !== '') {
+        const filteredRecipes = recipes.filter((recipe) => {
+            const regexp = new RegExp(`${text}`, 'gi');
+            return recipe.name.match(regexp);
+        })
+        // Keep track of old recipes
+        const oldrecipes = recipes;
+        removeChildNodes();
+        listRecipesinUI(filteredRecipes);
+        // Assign all recipes so that the filtering happens on all recipes every time the input is changed
+        recipes = oldrecipes;
+    }
+    else {
+        removeChildNodes();
+        axios.get('/api/result')
+            .then(res => listRecipesinUI(res.data))
+            .catch(err => {
+                console.error(err.message);
+                localStorage.setItem('message', err.message);
+                localStorage.setItem('alertType', 'danger');
+            })
+    }
+}
+
+function deleteRecipe(deleteRecipeItem) {
+    axios.delete(`/recipes/delete/${deleteRecipeItem}`)
+        .then(res => {
+            localStorage.setItem('message', res.data.message);
+            localStorage.setItem('alertType', 'success')
+            location.assign('/')
+        })
+        .catch(err => {
+            console.error(err.message);
+            localStorage.setItem('message', err.message);
+            localStorage.setItem('alertType', 'danger');
+            location.assign('/');
+        })
+}
+
 function createDomElement(elem) {
     return document.createElement(elem);
 }
@@ -75,12 +108,12 @@ function truncate(str, len) {
     return str;
 }
 
-document.addEventListener('DOMContentLoaded',() => {
+document.addEventListener('DOMContentLoaded', () => {
     axios.get('/api/result')
-    .then(res => listRecipesinUI(res.data))
-    .catch(err => { 
-        console.error(err.message);
-        localStorage.setItem('message', err.message);
-        localStorage.setItem('alertType', 'danger');
-    })
+        .then(res => listRecipesinUI(res.data))
+        .catch(err => {
+            console.error(err.message);
+            localStorage.setItem('message', err.message);
+            localStorage.setItem('alertType', 'danger');
+        })
 })
