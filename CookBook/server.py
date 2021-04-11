@@ -54,7 +54,7 @@ def add_recipe():
         price = json_data['price']
         desc = json_data['desc']
         if name != '' and ingredients != '' and prepsteps != '' and tools != '' and price != '' and desc != '':
-            mongo.db.recipes.insert({
+            mongo.db.recipes.insert_one({
                 'name' : name,
                 'ingredients' : ingredients.split(','),
                 'prepsteps' : prepsteps,
