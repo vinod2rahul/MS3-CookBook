@@ -21,16 +21,21 @@ function listRecipesinUI(param) {
     const row = document.getElementsByClassName('row')[0];
     recipes.forEach((recipe) => {
         const col = createDomElement('div');
-        col.classList.add('col', 'card', 'bg-light')
+        col.classList.add('col-sm-12', 'col-md-6', 'col-lg-4', 'card', 'bg-light')
+        const img = createDomElement('img');
+        img.classList.add('card-image-top','w-100');
+        img.setAttribute('src',"/static/images/icon.jpg");
+        img.setAttribute('alt',"...");
         const cardBody = createDomElement('div');
         cardBody.classList.add('card-body');
         const cardTitle = createDomElement('h3');
-        cardTitle.classList.add('text-primary', 'card-title');
+        cardTitle.classList.add('text-primary', 'card-title', 'mt-2');
         cardTitle.innerHTML = `${recipe.name}<span class="badge badge-primary" style="float:right;">€${recipe.price}</span>`;
         const carddesc = createDomElement('p');
         carddesc.innerHTML = truncate(recipe.desc, 50);
         const cardActions = createDomElement('p');
-        cardActions.innerHTML = `<a href='/recipes/update/${recipe._id.$oid}' class='btn btn-dark mr-1'>Edit</a><button class='btn btn-danger' id='deleteRecipeItem' onclick="deleteRecipe('${recipe._id.$oid}')">Delete</button> <a class='btn btn-warning' style='float:right;' href='/recipes/${recipe._id.$oid}'>Read More...</a>`
+        cardActions.innerHTML = `<a href='/recipes/update/${recipe._id.$oid}' class='btn btn-dark mr-1'>Edit</a><button class='btn btn-danger' id='deleteRecipeItem' onclick="deleteRecipe('${recipe._id.$oid}')">Delete</button> <a class='btn btn-warning m-2 ml-auto'  href='/recipes/${recipe._id.$oid}'>Read More...</a>`
+        addChild(cardBody, img);
         addChild(cardBody, cardTitle);
         addChild(cardBody, carddesc);
         addChild(cardBody, cardActions);
@@ -77,13 +82,13 @@ function deleteRecipe(deleteRecipeItem) {
         .then(res => {
             localStorage.setItem('message', res.data.message);
             localStorage.setItem('alertType', 'success')
-            location.assign('/')
+            location.assign('/menu')
         })
         .catch(err => {
             console.error(err.message);
             localStorage.setItem('message', err.message);
             localStorage.setItem('alertType', 'danger');
-            location.assign('/');
+            location.assign('/menu');
         })
 }
 

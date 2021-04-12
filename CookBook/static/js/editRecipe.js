@@ -35,13 +35,13 @@ document.getElementById('recipeUpdateForm').addEventListener('submit', (e) => {
             localStorage.setItem('message', res.data.message);
             localStorage.setItem('alertType', 'success');
             resetFields();
-            location.assign('/');
+            location.assign('/menu');
         })
         .catch(err => {
             localStorage.setItem('message', err.message);
             localStorage.setItem('alertType', 'danger');
             console.error(err.message);
-            location.assign('/');
+            location.assign('/menu');
         })
     }
     else if(name === '' && ingredients === '' && prepsteps === '' && tools === ''){

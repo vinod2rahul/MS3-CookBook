@@ -14,7 +14,7 @@
 <h1>Add Cooking Recipes</h1>
 <form id="formsubmit">
     <div class="form-group">
-        <label for="name">Recipe Name</label>
+        <label for="name">Recipe Name <span class="text-danger">*</span></label>
         <input type="text" class="form-control" id="name" name="name" aria-describedby="nameFeedback" placeholder="Enter Recipe Name...">
         <div id="nameFeedback" class="invalid-feedback">
             <small>Recipe Name is required</small>
@@ -35,7 +35,7 @@
         </div>
     </div>
     <div class="form-group">
-        <label for="ingredients">Ingredients</label>
+        <label for="ingredients">Ingredients <span class="text-danger">*</span></label>
         <input type="text" class="form-control" id="ingredients" name="ingredients" aria-describedby="ingredientsFeedback" placeholder="Enter Ingredients...">
         <small>if there are multiple ingredients to prepare recipe seperate them by comma</small>
         <div id="ingredientsFeedback" class="invalid-feedback">
@@ -43,14 +43,14 @@
         </div>
     </div>
     <div class="form-group">
-        <label for="stepsforprep">Preparation Steps</label>
+        <label for="stepsforprep">Preparation Steps <span class="text-danger">*</span></label>
         <textarea class="form-control" id="stepsforprep" name="prepsteps" aria-describedby="stepsforprepFeedback" placeholder="Enter steps to be followed to make recipe..."></textarea>
         <div id="stepsforprepFeedback" class="invalid-feedback">
             <small>Steps for preparation of recipe are required</small>
         </div>
     </div>
     <div class="form-group">
-        <label for="tools">Required Tools</label>
+        <label for="tools">Required Tools <span class="text-danger">*</span></label>
         <textarea class="form-control" id="tools" name="tools" aria-describedby="toolsFeedback" placeholder="Enter Required Tools to make a recipe..." ></textarea>
         <small>if there are multiple ingredients to prepare recipe seperate them by comma</small>
         <div id="toolsFeedback" class="invalid-feedback">

@@ -19,8 +19,14 @@ mongo = PyMongo(app)
 # Application Routes
 
 # @route http://localhost:8000/
-# @desc HomePage route and listing all recipes
+# @desc Dashboard Page
 @app.route('/', methods=['GET'])
+def dashBoard():
+    return render_template('dashboard.html')
+
+# @route http://localhost:8000/menu
+# @desc HomePage route and listing all recipes
+@app.route('/menu', methods=['GET'])
 def Index():
     return render_template('index.html')
 
