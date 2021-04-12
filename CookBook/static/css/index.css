@@ -1,4 +1,47 @@
-body{
-    font-family : Arial, Helvetica, sans-serif;
+body {
+    font-family: 'Raleway', sans-serif;
+    font-size: 1rem;
+    color: #333;
 }
 
+tbody tr:nth-child(2n){
+    background: orange;
+}
+
+tbody tr:nth-child(2n+1){
+    background: cyan;
+}
+
+.bg-color{
+    color: #17a2b8;
+}
+
+.comment-form, .comment-form-header {
+    background: #17a2b8;
+    color: #ffffff;
+    padding: 0.5rem;
+}
+
+.form {
+    display: block;
+    margin-top: 0.3rem;
+    color: #888;
+}
+
+.form textarea {
+    display: block;
+    width: 100%;
+    padding: 0.4rem;
+    font-size: 1.2rem;
+    border: 1px solid #ccc;
+}
+
+.form input[type='submit'], button {
+    font-family: 'Raleway', sans-serif;
+    font-size: 1rem;
+}
+
+.comment{
+    padding: 5px;
+    border: 2px solid #333;
+}

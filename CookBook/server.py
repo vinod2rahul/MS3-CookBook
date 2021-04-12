@@ -1,5 +1,5 @@
 # Import statements
-from flask import Flask, jsonify, request, render_template, redirect
+from flask import Flask, jsonify, request, render_template, redirect, url_for
 
 from flask_pymongo import PyMongo
 
@@ -22,7 +22,8 @@ mongo = PyMongo(app)
 # @desc Dashboard Page
 @app.route('/', methods=['GET'])
 def dashBoard():
-    return render_template('dashboard.html')
+    recipes = mongo.db.recipes.find()
+    return render_template('dashboard.html', recipes = recipes)
 
 # @route http://localhost:8000/menu
 # @desc HomePage route and listing all recipes
@@ -66,7 +67,9 @@ def add_recipe():
                 'prepsteps' : prepsteps,
                 'tools' : tools.split(','),
                 'price' : price,
-                'desc' : desc
+                'desc' : desc,
+                'likes' : 0,
+                'comments' : []
             })
             response = jsonify({ 'message' : 'Recipe Added Successfully' })
             response.status_code = 200
@@ -118,6 +121,80 @@ def delete_recipe(id):
         response = jsonify({ 'message' : 'Document Deleted Successfully'})
         response.status_code = 200
         return response
-    return redirect(url_for('index'))
+    return redirect(url_for('/menu'))
+
+# @route http://localhost:8000/recipe/like/<ObjectId:id>
+# @desc Add like to a recipe
+@app.route('/recipe/like/<ObjectId:id>', methods = ['PUT'])
+def likeRecipe(id):
+    singlerecipe = mongo.db.recipes.find_one_or_404({ '_id' : id })
+    if(singlerecipe['likes'] >= 0):
+        mongo.db.recipes.update_one({ '_id' : id }, {
+            '$inc' : {
+                'likes' : 1
+            }
+        })
+        recipe = mongo.db.recipes.find_one_or_404({ '_id' : id})
+        return jsonify({ 'likes' : recipe['likes'] })
+    else:
+        return jsonify({ 'likes' : 0 })
+
+# @route http://localhost:8000/recipe/dislike/<ObjectId:id>
+# @desc remove like to a recipe
+@app.route('/recipe/dislike/<ObjectId:id>', methods = ['PUT'])
+def dislikeRecipe(id):
+    singlerecipe = mongo.db.recipes.find_one_or_404({ '_id' : id })
+    if(singlerecipe['likes'] > 0):
+        mongo.db.recipes.update_one({ '_id' : id }, {
+            '$inc' : {
+                'likes' : -1
+            }
+        })
+        recipe = mongo.db.recipes.find_one_or_404({ '_id' : id})
+        return jsonify({ 'likes' : recipe['likes'] })
+    else:
+        return jsonify({ 'likes' : 0 })
+
+# @route http://localhost:8000/recipe/comments/add/<ObjectId:id>
+# @desc Add comment to a recipe
+@app.route('/recipe/comments/add/<ObjectId:id>', methods = ['GET', 'POST'])
+def AddcommentRecipe(id):
+    if request.method == 'POST':
+        singlerecipe = mongo.db.recipes.find_one_or_404({ '_id' : id })
+        comments = singlerecipe['comments']
+        comment = request.form['comment']
+        comments.append({ 'id' : len(comments), 'comment' : comment })
+        mongo.db.recipes.update_one({ '_id' : id }, {
+            '$set' : {
+                'comments' : comments
+            }
+        })
+        return redirect(request.url)
+    else: 
+        recipe = mongo.db.recipes.find_one({ '_id' : id })
+        return render_template('singleRecipe.html', recipe = recipe)
+
+# @route http://localhost:8000/recipe/comments/delete/<ObjectId:id>/<int:commenid>
+# @desc delete comment of a recipe
+@app.route('/recipe/comments/delete/<ObjectId:id>/<int:commid>', methods = ['GET', 'POST'])
+def deletecommentRecipe(id, commid):
+    if request.method == 'POST':
+        recipe = mongo.db.recipes.find_one({ '_id' : id })
+        comments = recipe['comments']
+        newComments = []
+        for comment in comments:
+            if comment['id'] != commid:
+                newComments.append(comment)
+        mongo.db.recipes.update_one({ '_id' : id}, {
+            '$set' : {
+                'comments' : newComments
+            }
+        })
+        print(request.url)
+        return redirect(request.url)
+    else: 
+        recipe = mongo.db.recipes.find_one({ '_id' : id })
+        return render_template('singleRecipe.html', recipe = recipe)
+
 if __name__ == '__main__':
     app.run(debug = True, port=8000)

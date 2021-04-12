@@ -12,7 +12,7 @@
 <!-- Main Content goes here -->
 {% block content %}
 <div class="row mt-2">
-    <div class="col card bg-light">
+    <div class="col-12 card bg-light">
         <div class="card-body">
             <h3 class="text-primary card-title">{{ recipe.name }}
                 <span class="badge badge-primary" style="float:right;">€{{ recipe.price }}</span>
@@ -32,6 +32,51 @@
                 <span class="text-info">{{ tool }}</span>
                 {% endfor %}
             </p>
+            <span>
+                <button onclick="like('{{ recipe._id }}')"><i class="fas fa-thumbs-up"></i></button>
+                <span class="text-info"  id="likes">{{ recipe.likes }}</span>
+            </span>
+            <span>
+                <button onclick="dislike('{{ recipe._id }}')"><i
+                        class="fas fa-thumbs-down"></i></button>
+                <span class="text-info" id="dislikes">{{ recipe.likes }}</span>
+            </span>
+        </div>
+        <div>
+            
+        </div>
+    </div>
+    <section class="container my-1">
+        <h1 class="bg-color">Comments</h1>
+        <p class="lead">
+            <i class="fas fa-user"></i>
+            Welcome to the Community
+        </p>
+        <div>
+            <div class="comment-form-header">
+                <h3>Say Something...</h3>
+            </div>
+            <form action="/recipe/comments/add/{{ recipe._id }}" method="POST" class="form my-1">
+                <textarea name="comment" cols="30" rows="3" placeholder="Create a comment..." required=""
+                    spellcheck="false"></textarea>
+                <input type="submit" class="btn btn-dark my-2" value="Submit">
+            </form>
+        </div>
+    </section>
+
+
+    <div class="col-12 mt-2">
+        <div>
+            <div class="row">
+                {% for comment in recipe.comments %}
+                <div class="col-12 m-4 bg-light comment">
+                    <p><span class="text-dark">Comment</span> : {{ comment.comment }}</p>
+                    <form action="/recipe/comments/delete/{{ recipe._id }}/{{ comment.id }}" method="POST">
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                </div>
+                {% endfor %}
+            </div>
         </div>
     </div>
 </div>
@@ -40,4 +85,5 @@
 
 {% block scripts %}
 {{ super() }}
+<script src="{{ url_for('static', filename='js/singleRecipe.js')}}"></script>
 {% endblock %}

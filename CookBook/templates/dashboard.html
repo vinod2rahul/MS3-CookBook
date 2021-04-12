@@ -11,10 +11,29 @@
 
 <!-- Main Content goes here -->
 {% block content %}
-    <h1>Dashboard</h1>
+<h1>Dashboard</h1>
+<table class="table">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Likes</th>
+            <th>Comments</th>
+        </tr>
+    </thead>
+    <tbody class="tbody">
+        {% for recipe in recipes %}
+        <tr>
+            <td>{{ loop.index  }}</td>
+            <td>{{ recipe.name }}</td>
+            <td>{{ recipe.likes }}</td>
+            <td>{{ recipe.comments | length}}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
 {% endblock %}
 
 {% block scripts %}
 {{ super() }}
-<!-- <script src="{{ url_for('static', filename = 'js/index.js') }}"></script> -->
 {% endblock %}
