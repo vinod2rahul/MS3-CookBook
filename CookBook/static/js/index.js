@@ -22,10 +22,13 @@ function listRecipesinUI(param) {
     recipes.forEach((recipe) => {
         const col = createDomElement('div');
         col.classList.add('col-sm-12', 'col-md-6', 'col-lg-4', 'card', 'bg-light')
+        const p = createDomElement('p');
+        p.classList.add('p');
         const img = createDomElement('img');
-        img.classList.add('card-image-top','w-100');
-        img.setAttribute('src',"/static/images/icon.jpg");
+        img.classList.add('card-image-top','img','w-100');
+        img.setAttribute('src',`/static/${recipe.image}`);
         img.setAttribute('alt',"...");
+        addChild(p,img)
         const cardBody = createDomElement('div');
         cardBody.classList.add('card-body');
         const cardTitle = createDomElement('h3');
@@ -35,7 +38,7 @@ function listRecipesinUI(param) {
         carddesc.innerHTML = truncate(recipe.desc, 50);
         const cardActions = createDomElement('p');
         cardActions.innerHTML = `<a href='/recipes/update/${recipe._id.$oid}' class='btn btn-dark mr-1'>Edit</a><button class='btn btn-danger' id='deleteRecipeItem' onclick="deleteRecipe('${recipe._id.$oid}')">Delete</button> <a class='btn btn-warning m-2 ml-auto'  href='/recipes/${recipe._id.$oid}'>Read More...</a>`
-        addChild(cardBody, img);
+        addChild(cardBody, p);
         addChild(cardBody, cardTitle);
         addChild(cardBody, carddesc);
         addChild(cardBody, cardActions);

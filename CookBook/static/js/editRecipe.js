@@ -5,6 +5,7 @@ const Domprepsteps = document.getElementById('stepsforprep');
 const Domtools = document.getElementById('tools');
 const Domprice = document.getElementById('price');
 const Domdesc = document.getElementById('desc');
+const Domimg = document.getElementById('img');
 const recipeId = document.getElementById('recipeid').value;
 
 // Check For form submission
@@ -18,19 +19,22 @@ document.getElementById('recipeUpdateForm').addEventListener('submit', (e) => {
     const desc = Domdesc.value;
 
     // Check for empty values
-    if(name !== '' && ingredients !== '' && prepsteps !== '' && tools !== '' && price !== '' && desc !== ''){
+    if(name !== '' && ingredients !== '' && prepsteps !== '' && tools !== '' && price !== '' && desc !== '' && Domimg.files.length !== 0){
+        const formData = new FormData();
+        const img = Domimg.files[0];
+        formData.append('name', name);
+        formData.append('ingredients', ingredients);
+        formData.append('prepsteps', prepsteps);
+        formData.append('tools', tools);
+        formData.append('desc', desc);
+        formData.append('price', price);
+        formData.append('img', img);
         const config = {
-            'Content-Type' : 'Application/json'
+            'Content-Type' : 'Application/json',
+            'enctype': 'multipart/form-data'
         }
-        const data = {
-            name,
-            ingredients,
-            prepsteps,
-            tools,
-            price,
-            desc
-        }
-        axios.put(`/recipes/update/${recipeId}`, data, config)
+
+        axios.put(`/recipes/update/${recipeId}`, formData, config)
         .then(res => {
             localStorage.setItem('message', res.data.message);
             localStorage.setItem('alertType', 'success');
@@ -44,11 +48,14 @@ document.getElementById('recipeUpdateForm').addEventListener('submit', (e) => {
             location.assign('/menu');
         })
     }
-    else if(name === '' && ingredients === '' && prepsteps === '' && tools === ''){
+    else if(name === '' && ingredients === '' && prepsteps === '' && tools === '' && price === '' && desc === '' && Domimg.files.length === 0){
         Domname.classList.add('is-invalid');
         Domingredients.classList.add('is-invalid');
         Domprepsteps.classList.add('is-invalid');
         Domtools.classList.add('is-invalid');
+        Domprice.classList.add('is-invalid');
+        Domdesc.classList.add('is-invalid');
+        Domimg.classList.add('is-invalid');
     }
     else if(name === ''){
         Domname.classList.add('is-invalid');
@@ -63,10 +70,13 @@ document.getElementById('recipeUpdateForm').addEventListener('submit', (e) => {
         Domtools.classList.add('is-invalid');
     }
     else if(price === ''){
-        Domtools.classList.add('is-invalid');
+        Domprice.classList.add('is-invalid');
     }
     else if(desc === ''){
-        Domtools.classList.add('is-invalid');
+        Domdesc.classList.add('is-invalid');
+    }
+    else if(Domimg.files.length === 0) {
+        Domimg.classList.add('is-invalid');
     }
     else{
         console.error("Error: Cannot Submit the form");

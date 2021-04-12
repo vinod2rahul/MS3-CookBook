@@ -36,6 +36,13 @@
         </div>
     </div>
     <div class="form-group">
+        <label for="img">Recipe Image<span class="text-danger">*</span></label>
+        <input type="file" class="form-control" id="img" name="img" aria-describedby="fileFeedback">
+        <div id="fileFeedback" class="invalid-feedback">
+            <small>Recipe image is required</small>
+        </div>
+    </div>
+    <div class="form-group">
         <label for="ingredients">Ingredients <span class="text-danger">*</span></label>
         <input type="text" class="form-control" id="ingredients" name="ingredients" value="{{ ','.join(recipe.ingredients) }}" aria-describedby="ingredientsFeedback">
         <small>if there are multiple ingredients to prepare recipe seperate them by comma</small>

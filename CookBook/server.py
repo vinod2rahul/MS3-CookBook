@@ -1,4 +1,6 @@
 # Import statements
+import os
+
 from flask import Flask, jsonify, request, render_template, redirect, url_for
 
 from flask_pymongo import PyMongo
@@ -53,14 +55,15 @@ def SingleRecipe(id):
 @app.route('/recipes/add', methods = ['GET', 'POST'])
 def add_recipe():
     if request.method == 'POST' :
-        json_data = request.json
-        name = json_data['name']
-        ingredients = json_data['ingredients']
-        prepsteps = json_data['prepsteps']
-        tools = json_data['tools']
-        price = json_data['price']
-        desc = json_data['desc']
+        name = request.form['name']
+        ingredients = request.form['ingredients']
+        prepsteps = request.form['prepsteps']
+        tools = request.form['tools']
+        price = request.form['price']
+        desc = request.form['desc']
+        file = request.files['img']
         if name != '' and ingredients != '' and prepsteps != '' and tools != '' and price != '' and desc != '':
+            file.save(os.path.join("./static/uploads", file.filename))
             mongo.db.recipes.insert_one({
                 'name' : name,
                 'ingredients' : ingredients.split(','),
@@ -69,7 +72,8 @@ def add_recipe():
                 'price' : price,
                 'desc' : desc,
                 'likes' : 0,
-                'comments' : []
+                'comments' : [],
+                'image' : 'uploads/' + file.filename
             })
             response = jsonify({ 'message' : 'Recipe Added Successfully' })
             response.status_code = 200
@@ -79,6 +83,7 @@ def add_recipe():
             response = jsonify({ 'message' : 'All Fields are Required' })
             response.status_code = 400
             return response
+        return ""
     return render_template('addRecipe.html')
 
 # @route http://localhost:8000/recipes/update/<ObjectId:id>
@@ -88,20 +93,22 @@ def update_recipe(id):
     fetchRecipe = mongo.db.recipes.find_one_or_404({'_id' : id})
     if request.method == 'PUT':
         if(id != ''):
-            json_data = request.json
-            name = json_data['name']
-            ingredients = json_data['ingredients']
-            prepsteps = json_data['prepsteps']
-            tools = json_data['tools']
-            price = json_data['price']
-            desc = json_data['desc']
+            name = request.form['name']
+            ingredients = request.form['ingredients']
+            prepsteps = request.form['prepsteps']
+            tools = request.form['tools']
+            price = request.form['price']
+            desc = request.form['desc']
+            file = request.files['img']
+            file.save(os.path.join("./static/uploads", file.filename))
             mongo.db.recipes.update_one({ '_id' : id},{ "$set" : {
                 'name' : name,
                 'ingredients' : ingredients.split(','),
                 'prepsteps' : prepsteps,
                 'tools' : tools.split(','),
                 'price' : price,
-                'desc' : desc
+                'desc' : desc,
+                'image' : 'uploads/' + file.filename
             }})
             response = jsonify({ 'message' : 'Document Updated successfully'})
             response.status_code = 200

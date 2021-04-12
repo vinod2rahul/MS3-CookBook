@@ -4,6 +4,16 @@ body {
     color: #333;
 }
 
+.img{
+    width:250px !important;
+    height: 250px !important;
+    object-fit: cover !important;
+}
+
+.p{
+    text-align:center;
+}
+
 tbody tr:nth-child(2n){
     background: orange;
 }
