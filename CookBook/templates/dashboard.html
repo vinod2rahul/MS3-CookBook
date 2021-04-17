@@ -15,11 +15,12 @@
 <table class="table">
     <thead>
         <tr>
-            <th>#</th>
+            <th>S.NO</th>
             <th>Name</th>
             <th>Likes</th>
             <th>Dislikes</th>
             <th>Comments</th>
+            <th>#</th>
         </tr>
     </thead>
     <tbody class="tbody">
@@ -30,6 +31,7 @@
             <td>{{ recipe.likes }}</td>
             <td>{{ recipe.dislikes }}</td>
             <td>{{ recipe.comments | length}}</td>
+            <td><a href="/recipes/{{ recipe._id }}">check Recipe</a></td>
         </tr>
         {% endfor %}
     </tbody>
