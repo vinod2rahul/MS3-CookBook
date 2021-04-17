@@ -72,6 +72,7 @@ def add_recipe():
                 'price' : price,
                 'desc' : desc,
                 'likes' : 0,
+                'dislikes' : 0,
                 'comments' : [],
                 'image' : 'uploads/' + file.filename
             })
@@ -151,16 +152,16 @@ def likeRecipe(id):
 @app.route('/recipe/dislike/<ObjectId:id>', methods = ['PUT'])
 def dislikeRecipe(id):
     singlerecipe = mongo.db.recipes.find_one_or_404({ '_id' : id })
-    if(singlerecipe['likes'] > 0):
+    if(singlerecipe['dislikes'] >= 0):
         mongo.db.recipes.update_one({ '_id' : id }, {
             '$inc' : {
-                'likes' : -1
+                'dislikes' : 1
             }
         })
         recipe = mongo.db.recipes.find_one_or_404({ '_id' : id})
-        return jsonify({ 'likes' : recipe['likes'] })
+        return jsonify({ 'dislikes' : recipe['dislikes'] })
     else:
-        return jsonify({ 'likes' : 0 })
+        return jsonify({ 'dislikes' : 0 })
 
 # @route http://localhost:8000/recipe/comments/add/<ObjectId:id>
 # @desc Add comment to a recipe
