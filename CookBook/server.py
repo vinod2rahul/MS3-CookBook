@@ -14,7 +14,7 @@ app = Flask(__name__)
 
 # Database Configurations
 
-app.config['MONGO_URI'] = "mongodb://127.0.0.1:27017/CookBook"
+app.config['MONGO_URI'] = "mongodb+srv://vinod:Codeinstitute123*@cookbook.tlyxb.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
 
 mongo = PyMongo(app)
 
