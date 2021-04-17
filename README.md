@@ -1,45 +1,72 @@
-![CI logo](https://codeinstitute.s3.amazonaws.com/fullstack/ci_logo_small.png)
+# CookBook
+Milestone three project:  Python and Data Centric Development - Code Institute
+This is a full stack site that allows users to manage a dataset about particular domain. This project highlights convinient access to the data provided by other members using the application, it also suppors all CRUD operations,  a dashboard page that gives statistics about recipe for efficient understanding.
 
-Welcome USER_NAME,
+## Menu Page
+Must have:
+As a user I would like to quickly and easily check what are the recipes available in this site, also check whether this site  provides the information of a recipe that I like.
 
-This is the Code Institute student template for Gitpod. We have preinstalled all of the tools you need to get started. You can safely delete this README.md file, or change it for your own project. Please do read it at least once, though! It contains some important information about Gitpod and the extensions we use.
+As a user I want to easily add, update, delete a recipe.
 
-## Gitpod Reminders
+Should have:
+As a user I'd like to read about recipes that are most liked and having good reviews in market.
 
-To run a frontend (HTML, CSS, Javascript only) application in Gitpod, in the terminal, type:
 
-`python3 -m http.server`
 
-A blue button should appear to click: *Make Public*,
+# UX
 
-Another blue button should appear to click: *Open Browser*.
+## Strategy
+My goal in the design was to make it as easy as possible to access information on the site while striving for a minimalist and user-friendly design.
 
-To run a backend Python file, type `python3 app.py`, if your Python file is named `app.py` of course.
+##  Scope
+For users, I wanted to provide a brief overview of all recipes, also create new entries if have any. This way, many other members of the community get a glimpse about recipes that they can order for and enjoy their lunchtime, weekends and party's, with average price in the market so they can plan for order.
 
-A blue button should appear to click: *Make Public*,
+## Structure
+I wanted users to be able to quickly access the data that is available, providing a short description, ingredients, preparation steps about a recipe with number of people's likes/ dislikes and comments. A link to dashboard, menu pages for quick navigation and a overview of all recipes in a single dashboard page for quick access and efficient performance.
 
-Another blue button should appear to click: *Open Browser*.
+## Surface
+The bootstrap color schema was chosen to create a modern feel.
 
-In Gitpod you have superuser security privileges by default. Therefore you do not need to use the `sudo` (superuser do) command in the bash terminal in any of the lessons.
+## Technologies
+1. HTML
+2. CSS
+3. Bootstrap
+4. JS
+5.Python + Flask
+6. MongoDB database
 
-## Updates Since The Instructional Video
+##  Features
+This site uses the bootstrap grid layout for better organising the content of a page. The navbar also stays regardless of the screen size to achieve quick access to pages.
 
-We continually tweak and adjust this template to help give you the best experience. Here is the version history:
+# 1. Create
+This site allows users to add a recipe with certain fields and a image for better understanding about a recipe
 
-**October 21 2020:** Versions of the HTMLHint, Prettier, Bootstrap4 CDN and Auto Close extensions updated. The Python extension needs to stay the same version for now.
+# 2. Edit
+Every recipe can be updated with specific details if known with some additional information 
 
-**October 08 2020:** Additional large Gitpod files (`core.mongo*` and `core.python*`) are now hidden in the Explorer, and have been added to the `.gitignore` by default.
+# 3.Delete
+Users can delete a recipe if it no longer exist in market
 
-**September 22 2020:** Gitpod occasionally creates large `core.Microsoft` files. These are now hidden in the Explorer. A `.gitignore` file has been created to make sure these files will not be committed, along with other common files.
+# 4. Access
+Every user will be provided with complete information about recipe that was shared by a single member in a community
 
-**April 16 2020:** The template now automatically installs MySQL instead of relying on the Gitpod MySQL image. The message about a Python linter not being installed has been dealt with, and the set-up files are now hidden in the Gitpod file explorer.
+# 5. Like/ Dislike and comments.
+User can share their feedback about recipe
 
-**April 13 2020:** Added the _Prettier_ code beautifier extension instead of the code formatter built-in to Gitpod.
+## Testing
 
-**February 2020:** The initialisation files now _do not_ auto-delete. They will remain in your project. You can safely ignore them. They just make sure that your workspace is configured correctly each time you open it. It will also prevent the Gitpod configuration popup from appearing.
+The user and site owner achieved the intended outcome of providing them with a showcase of common data. In the dashboard section, they can quickly check usefull information of a recipe like name, comments, likes and dislikes, link which takes to that recipe page for full information. They are able to see all list of recipes via cards in menu section. They are also able to view comments submitted, number of likes and dislikes for a recipe in read more section. They are also able to edit, delete data specific to a recipe and comments. The application is also made responsive for a modern feel.
 
-**December 2019:** Added Eventyret's Bootstrap 4 extension. Type `!bscdn` in a HTML file to add the Bootstrap boilerplate. Check out the <a href="https://github.com/Eventyret/vscode-bcdn" target="_blank">README.md file at the official repo</a> for more options.
+## Deployment
+This site is hosted using Heroku Cloud platform, deployed directly from heroku remote master branch. The deployed site will update automatically upon new commits to the master branch of heroku. In order for the site to deploy correctly on heroku, the dependencies must be added to requirements.txt file and given this command web:gunicorn filename:variable_to_run in Procfile
 
---------
+Check it live here: http://cook-book-flaskapp.herokuapp.com/
 
-Happy coding!
+To run locally you can clone this repository directly into the editor of your choice by pasting git clone https://github.com/vinod2rahul/MS3-CookBook.git into your terminal. 
+
+Use command python server.py to run app locally a port 8000 in cookbook folder.
+
+You can check it run at localhost:8000 if followed above procedure correctly.
+
+## Credits
+All content and code in this project site was writen by me.
