@@ -32,7 +32,7 @@ The bootstrap color schema was chosen to create a modern feel.
 2. CSS
 3. Bootstrap
 4. JS
-5.Python + Flask
+5. Python + Flask
 6. MongoDB database
 
 ##  Features
