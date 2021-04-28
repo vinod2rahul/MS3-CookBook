@@ -60,7 +60,7 @@ The user and site owner achieved the intended outcome of providing them with a s
 ## Deployment
 This site is hosted using Heroku Cloud platform, deployed directly from heroku remote master branch. The deployed site will update automatically upon new commits to the master branch of heroku. In order for the site to deploy correctly on heroku, the dependencies must be added to requirements.txt file and given this command web:gunicorn filename:variable_to_run in Procfile
 
-Check it live here: http://cook-book-flaskapp.herokuapp.com/
+Check it live here: https://cook-book-flaskapp.herokuapp.com/
 
 To run locally you can clone this repository directly into the editor of your choice by pasting git clone https://github.com/vinod2rahul/MS3-CookBook.git into your terminal. 
 
